@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <div className="w-full h-[84px] bg-[#18181B]">
-      <div className="w-[1440px] flex  py-[12px] px-[88px] justify-between items-center ">
+      <div className="w-[1440px] flex  py-[12px] px-[88px] justify-between m-auto items-center ">
         <div className="flex items-center gap-3">
           <img src="/logo.svg" alt="" />
           <div>

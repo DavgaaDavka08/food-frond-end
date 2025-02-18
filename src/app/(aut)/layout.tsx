@@ -1,4 +1,4 @@
-import Headers from "./Headers";
+import Photo from "./_components/Photo";
 
 export default function RootLayout({
   children,
@@ -6,12 +6,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex">
-      <div className="w-[10vw] h-screen bg-blue-400"></div>
-      <div>
-        <Headers />
-        {children}
-      </div>
+    <div className="w-[1440px] h-[1024px] m-auto flex gap-[24px] justify-center items-center">
+      {children}
+      <Photo />
     </div>
   );
 }
