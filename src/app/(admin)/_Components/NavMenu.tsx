@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function NavMenu() {
   return (
-    <div className="w-[295px] h-screen  flex pt-9 pb-9 px-[var(--spacing-5,20px)] flex-col items-start gap-10 flex-shrink-0">
+    <div className="w-[205px] h-screen  flex pt-9 pb-9 px-[var(--spacing-5,20px)] flex-col items-start gap-10 flex-shrink-0">
       <div className="flex gap-2">
         <img src="/logo.svg" alt="" />
         <div className="flex flex-col">

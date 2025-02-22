@@ -11,7 +11,14 @@ export function PopoverDemo() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
+        <Button
+          className="flex h-[36px] w-[165px] px-[16px] py-[8px] justify-center items-center gap-[8px] rounded-full opacity-20 bg-[var(--background-bg-primary,#18181B)]"
+          variant="outline"
+        >
+          <p className="text-[var(--text-text-primary-foreground,#FAFAFA)] font-inter text-[14px] font-medium leading-[20px]">
+            Change delivery state
+          </p>
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <div className="grid gap-4">
@@ -20,40 +27,6 @@ export function PopoverDemo() {
             <p className="text-sm text-muted-foreground">
               Set the dimensions for the layer.
             </p>
-          </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">Width</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxWidth">Max. width</Label>
-              <Input
-                id="maxWidth"
-                defaultValue="300px"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="height">Height</Label>
-              <Input
-                id="height"
-                defaultValue="25px"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxHeight">Max. height</Label>
-              <Input
-                id="maxHeight"
-                defaultValue="none"
-                className="col-span-2 h-8"
-              />
-            </div>
           </div>
         </div>
       </PopoverContent>
