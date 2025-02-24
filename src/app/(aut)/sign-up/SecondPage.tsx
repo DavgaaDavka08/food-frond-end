@@ -18,12 +18,17 @@ import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
 
 const formSchema = z.object({
   password: z.string().min(6, "hamgiin bagadaa 6").max(8, "8 aas bvv hetvvl"),
+  PasswordCompirm: z
+    .string()
+    .min(6, "hamgiin bagadaa 6")
+    .max(8, "8 aas bvv hetvvl"),
 });
 export default function SecondPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
+      PasswordCompirm: "",
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -53,6 +58,23 @@ export default function SecondPage() {
                   <Input
                     type="password"
                     placeholder="Enter your password address"
+                    className="w-[392px] h-[40px] px-[8px] py-[12px] flex  items-center rounded-md border border-gray-300 bg-white"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="PasswordCompirm"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Comfirm"
                     className="w-[392px] h-[40px] px-[8px] py-[12px] flex  items-center rounded-md border border-gray-300 bg-white"
                     {...field}
                   />

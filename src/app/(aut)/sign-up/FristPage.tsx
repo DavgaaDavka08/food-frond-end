@@ -19,7 +19,7 @@ import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
 });
-export default function FristPage() {
+export default function FristPage({ next }: { next: () => void }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,6 +29,7 @@ export default function FristPage() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     alert("amjilttaui");
+    next();
   }
 
   return (
@@ -62,6 +63,7 @@ export default function FristPage() {
             )}
           />
           <Button
+            onChange={next}
             className="flex w-[392px] h-[40px] px-8 py-0 justify-center items-center gap-8 rounded-md opacity-20 bg-[#18181B] text-white text-sm font-medium leading-5"
             variant="outline"
             type="submit"
