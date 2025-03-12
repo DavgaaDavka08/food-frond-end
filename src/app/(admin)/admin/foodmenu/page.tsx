@@ -1,18 +1,26 @@
+import { PopoverDemoFoodMenu } from "@/components/myshdchn/food-menu-popover";
+import { InputWithButton } from "@/components/myshdchn/submit-input";
 import Image from "next/image";
 
 export default function Catagory() {
   return (
-    <div className="w-[90vw]  flex flex-col items-end gap-6  ">
-      <Image src="/Avatar.svg" alt="" width={35} height={35} />
-      <div className=" w-[90vw] h-full bg-white  p-4 border border-[#E4E4E7] rounded-sm ">
-        <div className="flex justify-between items-center">
-          <div className="w-[485px] h-[44x] flex flex-col items-start">
-            <p className="text-[var(--text-text-foreground,#09090B)] font-inter text-[20px] font-bold leading-[28px] tracking-[-0.5px]">
-              Dishes category
-            </p>
+    <div className="w-[100%] h-screen] justify-center items-center flex flex-col bg-[#F4F4F5]">
+      <div className="w-[92%] h-[718px]   flex flex-col gap-[24px]  m-auto items-end ">
+        <Image alt="" src="/Avatar.svg" width={35} height={35} />
+        <div className="w-[100%] flex p-6  flex-col  items-start gap-4 border border-[#E4E4E7] rounded-sm  bg-white">
+          <div className="flex flex-col w-[485.2px] items-start">
+            <h4 className="text-[#09090B] font-inter text-[20px] font-bold leading-7 tracking-[-0.5px] ">
+              Dishesh
+            </h4>
+            <h3>32items</h3>
+          </div>
+          <div>
+            <PopoverDemoFoodMenu />
+          </div>
+          <div>
+            <InputWithButton />
           </div>
         </div>
-        <div className="flex justify-between items-center"></div>
       </div>
     </div>
   );

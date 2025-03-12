@@ -1,6 +1,6 @@
-import { InputDemo } from "@/components/myshdchn/my-input";
 import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
 import { ButtonDestructive } from "@/components/myshdchn/mybuttunred";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
@@ -8,7 +8,7 @@ export default function Header() {
     <div className="w-full h-[84px] bg-[#18181B]">
       <div className="w-[1440px] flex  py-[12px] px-[88px] justify-between m-auto items-center ">
         <div className="flex items-center gap-3">
-          <img src="/logo.svg" alt="" />
+          <Image width={50} height={50} src="/logo.svg" alt="" />
           <div>
             <div className="flex">
               <h4 className="text-[#FAFAFA] font-inter text-[20px] font-semibold leading-[28px] tracking-[-0.5px]">

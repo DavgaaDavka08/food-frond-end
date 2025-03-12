@@ -3,13 +3,14 @@ import {
   ButtonAdminTree,
   ButtonAdminTwo,
 } from "@/components/myshdchn/buttun-admin";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function NavMenu() {
   return (
-    <div className="w-[10vw] h-screen border-gray-300  flex pt-9 pb-9 px-[var(--spacing-5,20px)] flex-col items-start gap-10 flex-shrink-0">
+    <div className="w-[15%] bg-black h-screen border-gray-300  flex pt-9 pb-9 px-[var(--spacing-5,20px)] flex-col items-start gap-10 flex-shrink-0">
       <div className="flex gap-2">
-        <img src="/logo.svg" alt="" />
+        <Image width={50} height={50} src="/logo.svg" alt="" />
         <div className="flex flex-col">
           <h4 className="text-[18px] normal leading-7 font-semibold text-[#09090B]">
             NomNom
