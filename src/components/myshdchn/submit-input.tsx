@@ -2,44 +2,77 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { error } from "console";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function InputWithButton() {
-  const [datas, setDatas] = useState([]);
-
+  const [postDatas, setPostDatas] = useState<any[]>([]);
+  const [getData, setGetData] = useState<any[]>([]);
   useEffect(() => {
-    const getdata = async () => {
+    const postData = async () => {
       try {
-        const response = await fetch("http://localhost:6000/food");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
+        const response = await fetch("http://localhost:9999/food");
         const fetchData = await response.json();
-        console.log("Fetched Data:", fetchData); // Fetch хариуг шалгах
-
-        if (fetchData && Array.isArray(fetchData.data)) {
-          setDatas(fetchData.data);
-        } else {
-          console.error("Fetched data is not an array:", fetchData);
-        }
+        setPostDatas(fetchData.response);
+        console.log("Fetched Data", fetchData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    getdata();
+    postData();
   }, []);
+  const postData = async () => {
+    try {
+      const response = await fetch("http://localhost:9999/food");
+      const fetchData = await response.json();
+      setPostDatas(fetchData.response);
+      console.log("Fetched Data", fetchData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const getData = await fetch("http://localhost:9999/food", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ FoodName: "banshtai tsai" }),
+        });
+        if (!getData.ok) {
+          throw new Error(`getdata status:${getData.status}`);
+        }
 
+        const getJson = await getData.json();
+        setGetData(getJson.getData);
+        postData();
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    getData();
+  }, []);
+  const addHandler = () => {};
   return (
     <div className="flex w-full max-w-sm items-center space-x-2">
-      <Input type="email" placeholder="Email" />
-      <Button type="submit">Subscribe</Button>
       <div>
-        бөый
-        {datas.map((data, index) => (
+        <div>
+          <input
+            type="email"
+            placeholder="search"
+            value={postDatas}
+            onChange={() => setPostDatas(postDatas)}
+          />
+          <button onClick={addHandler}>add</button>
+        </div>
+        {postDatas?.map((data, index) => (
           <div key={index}>
-            <p>{data.original_title}</p>
+            <p>{data.FoodName}</p>
+            fjekoah
+            <Image alt="" src={data.image} width={100} height={100} />
           </div>
         ))}
       </div>
