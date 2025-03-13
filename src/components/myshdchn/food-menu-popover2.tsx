@@ -31,10 +31,12 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "../ui/context-menu";
+import { promises } from "dns";
 
 export function PopoverDemoTwo() {
   const [getDatas, setGetDatas] = useState<any[]>([]);
   const [postDatas, setPostDatas] = useState<any[]>([]);
+
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -83,13 +85,47 @@ export function PopoverDemoTwo() {
     };
     fetchData();
   }, []);
-
+  const deleteData = async (id: string) => {
+    try {
+      const deletedata = await fetch(`http://localhost:9999/food/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!deletedata.ok) {
+        throw new Error(`deletedata:status:>${deletedata.status}`);
+      }
+      const jsonDeleteData = deletedata.json();
+      console.log("amjilttai usrtgalaa", jsonDeleteData);
+    } catch (error) {
+      console.log("error usgaj chadsangvv ", error);
+    }
+    getData();
+  };
   ///
+  const updateData = async (id: string) => {
+    try {
+      const updatedata = await fetch(`http://localhost:9999/food/${id}`, {
+        method: "UPDATE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!updatedata.ok) {
+        throw new Error(`update:>Status${updatedata.status}`);
+      }
+      const fetchUpDateData = updatedata.json();
+      console.log("amjilttai oorjilloo", fetchUpDateData);
+    } catch (error) {
+      console.log("oorchlohod aldaa garlaa", error);
+    }
+  };
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     await PostData(values.categoryName);
     alert("ok");
-    setOpen(false); // Close popover after submitting
+    setOpen(false);
   }
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -100,7 +136,10 @@ export function PopoverDemoTwo() {
               {data.FoodName}
             </ContextMenuTrigger>
             <ContextMenuContent className="w-64">
-              <ContextMenuItem inset>Delete</ContextMenuItem>
+              <ContextMenuItem onClick={() => deleteData(data._id)} inset>
+                Delete
+              </ContextMenuItem>
+              <ContextMenuItem inset>update</ContextMenuItem>
             </ContextMenuContent>
           </ContextMenu>
         ))}
