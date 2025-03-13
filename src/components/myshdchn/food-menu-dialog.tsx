@@ -103,31 +103,16 @@ export function DialogDemos() {
     console.log("data", jsonData);
   };
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[496px] h-[594px] flex p-6 flex-col items-start gap-6 rounded-[12px]">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-        </DialogHeader>
-        <div className="flex flex-wrap gap-4 ">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="categoryName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>categoryName</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Type food name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
+    <div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">Edit Profile</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[496px] h-[594px] flex p-6 flex-col items-start gap-6 rounded-[12px]">
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-wrap gap-4 ">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -135,19 +120,18 @@ export function DialogDemos() {
               >
                 <FormField
                   control={form.control}
-                  name="price"
+                  name="categoryName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enter price...</FormLabel>
+                      <FormLabel>categoryName</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter price..." {...field} />
+                        <Input placeholder="Type food name" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
               </form>
-            </Form>
-            <div>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -155,54 +139,75 @@ export function DialogDemos() {
                 >
                   <FormField
                     control={form.control}
-                    name="ingredients"
+                    name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>ingredients</FormLabel>
+                        <FormLabel>Enter price...</FormLabel>
                         <FormControl>
-                          <Input
-                            className="w-[400px] h-[86px] flex py-2 px-4 flex-col items-start p-2 flex-1 self-stretch  rounded-md border border-gray-300 bg-white shadow-sm"
-                            placeholder="List ingredients..."
-                            {...field}
-                          />
+                          <Input placeholder="Enter price..." {...field} />
                         </FormControl>
                       </FormItem>
                     )}
                   />
                 </form>
               </Form>
-            </div>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
-              >
-                <FormField
-                  control={form.control}
-                  name="image"
-                  render={({ field: { onChange, value, ...rest } }) => (
-                    <FormItem>
-                      <FormLabel>Зураг</FormLabel>
-                      <FormControl>
-                        <Input type="file" onChange={handleChange} />
-                      </FormControl>
-                      {previewUrl && (
-                        <img
-                          src={previewUrl}
-                          alt="Зураг"
-                          className="w-32 h-32 mt-2"
-                        />
+              <div>
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="ingredients"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ingredients</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="w-[400px] h-[86px] flex py-2 px-4 flex-col items-start p-2 flex-1 self-stretch  rounded-md border border-gray-300 bg-white shadow-sm"
+                              placeholder="List ingredients..."
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
                       )}
-                      <FormMessage />
-                      <Button type="submit">Илгээх</Button>
-                    </FormItem>
-                  )}
-                />
-              </form>
+                    />
+                  </form>
+                </Form>
+              </div>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="image"
+                    render={({ field: { onChange, value, ...rest } }) => (
+                      <FormItem>
+                        <FormLabel>Зураг</FormLabel>
+                        <FormControl>
+                          <Input type="file" onChange={handleChange} />
+                        </FormControl>
+                        {previewUrl && (
+                          <img
+                            src={previewUrl}
+                            alt="Зураг"
+                            className="w-32 h-32 mt-2"
+                          />
+                        )}
+                        <FormMessage />
+                        <Button type="submit">Илгээх</Button>
+                      </FormItem>
+                    )}
+                  />
+                </form>
+              </Form>
             </Form>
-          </Form>
-        </div>
-      </DialogContent>
-    </Dialog>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }

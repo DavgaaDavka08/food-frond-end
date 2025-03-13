@@ -6,7 +6,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -32,6 +31,15 @@ import {
   ContextMenuTrigger,
 } from "../ui/context-menu";
 import { promises } from "dns";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import Image from "next/image";
 
 export function PopoverDemoTwo() {
   const [getDatas, setGetDatas] = useState<any[]>([]);
@@ -86,22 +94,19 @@ export function PopoverDemoTwo() {
     fetchData();
   }, []);
   const deleteData = async (id: string) => {
+    const isConfirmed = window.confirm("Would you like to undo this action?");
+    if (!isConfirmed) return;
     try {
-      const deletedata = await fetch(`http://localhost:9999/food/${id}`, {
+      const response = await fetch(`http://localhost:9999/food/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      if (!deletedata.ok) {
-        throw new Error(`deletedata:status:>${deletedata.status}`);
-      }
-      const jsonDeleteData = deletedata.json();
-      console.log("amjilttai usrtgalaa", jsonDeleteData);
+      await getData();
     } catch (error) {
-      console.log("error usgaj chadsangvv ", error);
+      console.error("Устгах үед алдаа гарлаа:", error);
     }
-    getData();
   };
   ///
   const updateData = async (id: string) => {
@@ -128,7 +133,7 @@ export function PopoverDemoTwo() {
     setOpen(false);
   }
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <div className="flex gap-4 flex-wrap">
         {getDatas?.map((data, index) => (
           <ContextMenu key={index}>
@@ -144,14 +149,18 @@ export function PopoverDemoTwo() {
           </ContextMenu>
         ))}
       </div>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[426px] h-[254px] flex flex-col justify-between gap-7">
-        <div className="flex justify-between">
-          <h4 className="font-medium leading-none">Add new category</h4>
-          <ButtonSecondary onClose={() => setOpen(false)} />
-        </div>
+      <DialogTrigger asChild>
+        <Button
+          className="flex w-[36px] h-[36px] py-2 px-4 items-center gap-2 rounded-full bg-[#EF4444]"
+          variant="outline"
+        >
+          +
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="w-[426px] h-[254px] flex flex-col justify-between gap-7">
+        <DialogHeader>
+          <DialogTitle>Add new category</DialogTitle>
+        </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -177,7 +186,7 @@ export function PopoverDemoTwo() {
             </div>
           </form>
         </Form>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 }
