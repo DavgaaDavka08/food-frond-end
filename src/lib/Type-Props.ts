@@ -1,6 +1,6 @@
-// import { string } from "zod";
-
-// const Mytype: type = {
-//   id: string,
-// };
-// export default Mytype;
+export type FoodType = {
+  FoodName: string;
+  image: string;
+  price: number;
+  ingredients: number;
+};

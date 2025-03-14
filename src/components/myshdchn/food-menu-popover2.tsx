@@ -35,24 +35,26 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import Image from "next/image";
+import { Label } from "../ui/label";
 
 export function PopoverDemoTwo() {
   const [getDatas, setGetDatas] = useState<any[]>([]);
   const [postDatas, setPostDatas] = useState<any[]>([]);
-
   const [open, setOpen] = useState(false);
+  const [updateDatas, setUpdateDatas] = useState("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       categoryName: "",
     },
   });
-  //
+  ////
   const getData = async () => {
     try {
       const data = await fetch("http://localhost:9999/food");
@@ -63,6 +65,7 @@ export function PopoverDemoTwo() {
       console.log("error");
     }
   };
+  ////
   const PostData = async (categoryName: string) => {
     try {
       const postData = await fetch("http://localhost:9999/food", {
@@ -109,22 +112,29 @@ export function PopoverDemoTwo() {
     }
   };
   ///
+
   const updateData = async (id: string) => {
     try {
       const updatedata = await fetch(`http://localhost:9999/food/${id}`, {
-        method: "UPDATE",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ FoodName: updateDatas }),
       });
       if (!updatedata.ok) {
         throw new Error(`update:>Status${updatedata.status}`);
       }
       const fetchUpDateData = updatedata.json();
       console.log("amjilttai oorjilloo", fetchUpDateData);
+      await getData();
     } catch (error) {
       console.log("oorchlohod aldaa garlaa", error);
     }
+  };
+  const editData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUpdateDatas(value);
   };
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -144,19 +154,51 @@ export function PopoverDemoTwo() {
               <ContextMenuItem onClick={() => deleteData(data._id)} inset>
                 Delete
               </ContextMenuItem>
-              <ContextMenuItem inset>update</ContextMenuItem>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline">update</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Edit profile</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="name" className="text-right">
+                        Name
+                      </Label>
+                      <Input
+                        onChange={editData}
+                        id="name"
+                        className="col-span-3"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button
+                      onClick={() => {
+                        updateData(data._id);
+                      }}
+                      type="submit"
+                    >
+                      Save changes
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </ContextMenuContent>
           </ContextMenu>
         ))}
+        <DialogTrigger asChild>
+          <Button
+            className="flex w-[40px] h-[40px] py-2 px-4 items-center gap-2 rounded-full bg-[#EF4444]"
+            variant="outline"
+          >
+            <Image src={"/plus.svg"} alt="" width={46} height={46} />
+          </Button>
+        </DialogTrigger>
       </div>
-      <DialogTrigger asChild>
-        <Button
-          className="flex w-[36px] h-[36px] py-2 px-4 items-center gap-2 rounded-full bg-[#EF4444]"
-          variant="outline"
-        >
-          +
-        </Button>
-      </DialogTrigger>
+
       <DialogContent className="w-[426px] h-[254px] flex flex-col justify-between gap-7">
         <DialogHeader>
           <DialogTitle>Add new category</DialogTitle>
