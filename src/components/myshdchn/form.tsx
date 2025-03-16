@@ -18,10 +18,11 @@ const formSchema = z.object({
 import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { FoodType } from "@/lib/Type-Props";
 
 const Forms = () => {
-  const [getDatas, setGetDatas] = useState<any[]>([]);
-  const [postDatas, setPostDatas] = useState<any[]>([]);
+  const [getDatas, setGetDatas] = useState<FoodType[]>([]);
+  const [postDatas, setPostDatas] = useState<FoodType[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,7 +37,7 @@ const Forms = () => {
       console.log("aaaa", jsonData);
       setGetDatas(jsonData.getfood);
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
     }
   };
   const PostData = async (categoryName: string) => {
@@ -83,7 +84,11 @@ const Forms = () => {
                 </FormControl>
                 <FormDescription>
                   This is your public display name.
-                  <p>{postDatas}</p>
+                  <div>
+                    {postDatas?.map((data, index) => (
+                      <p key={index}>{data.FoodName}</p>
+                    ))}
+                  </div>
                 </FormDescription>
                 <FormMessage />
               </FormItem>

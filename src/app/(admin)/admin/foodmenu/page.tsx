@@ -14,7 +14,7 @@ export default function Catagory() {
       console.log("aaaa", jsonData);
       setGetDatas(jsonData.getfood);
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
     }
   };
   useEffect(() => {

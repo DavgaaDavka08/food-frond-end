@@ -119,7 +119,7 @@ export function DialogDemos() {
     getData();
   };
   return (
-    <div className="flex h-[550px]  flex-wrap p-5 items-start gap-4">
+    <div className="flex h-[550px] max-w-[1200px]  flex-wrap p-5 items-start gap-4">
       <Dialog>
         <DialogTrigger asChild>
           <div className="w-[270px] h-[242px] flex flex-col justify-center items-center gap-6 p-2 sm:p-4 flex-1 self-stretch rounded-[20px] border border-dashed border-red-500">
@@ -194,10 +194,12 @@ export function DialogDemos() {
                         <Input {...rest} type="file" onChange={handleChange} />
                       </FormControl>
                       {previewUrl && (
-                        <img
+                        <Image
                           src={previewUrl}
                           alt=""
                           className="w-32 h-32 mt-2"
+                          width={32}
+                          height={32}
                         />
                       )}
                       <FormMessage />

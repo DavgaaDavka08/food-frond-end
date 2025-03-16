@@ -1,14 +1,12 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { error } from "console";
+import { FoodType } from "@/lib/Type-Props";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function InputWithButton() {
-  const [postDatas, setPostDatas] = useState<any[]>([]);
-  const [getData, setGetData] = useState<any[]>([]);
+  const [postDatas, setPostDatas] = useState<FoodType[]>([]);
+  const [getData, setGetData] = useState<FoodType[]>([]);
+  console.log(getData);
   useEffect(() => {
     const postData = async () => {
       try {

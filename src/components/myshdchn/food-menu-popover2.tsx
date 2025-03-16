@@ -18,23 +18,18 @@ import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { ButtonSecondary } from "./food-menu-buttuntwo";
+import {} from "@/components/ui/popover";
+
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
 } from "../ui/context-menu";
-import { promises } from "dns";
+
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -42,10 +37,12 @@ import {
 } from "../ui/dialog";
 import Image from "next/image";
 import { Label } from "../ui/label";
+import { FoodType } from "@/lib/Type-Props";
 
 export function PopoverDemoTwo() {
-  const [getDatas, setGetDatas] = useState<any[]>([]);
-  const [postDatas, setPostDatas] = useState<any[]>([]);
+  const [getDatas, setGetDatas] = useState<FoodType[]>([]);
+  const [postDatas, setPostDatas] = useState<FoodType[]>([]);
+  console.log("postDatas :>> ", postDatas);
   const [open, setOpen] = useState(false);
   const [updateDatas, setUpdateDatas] = useState("");
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,7 +59,7 @@ export function PopoverDemoTwo() {
       console.log("aaaa", jsonData);
       setGetDatas(jsonData.getfood);
     } catch (error) {
-      console.log("error");
+      console.log("error", error);
     }
   };
   ////
@@ -106,6 +103,7 @@ export function PopoverDemoTwo() {
           "Content-Type": "application/json",
         },
       });
+      console.log("response :>> ", response);
       await getData();
     } catch (error) {
       console.error("Устгах үед алдаа гарлаа:", error);
