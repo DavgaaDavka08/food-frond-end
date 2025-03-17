@@ -137,6 +137,7 @@ export function PopoverDemoTwo() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     await PostData(values.categoryName);
+    await getData();
     alert("ok");
     setOpen(false);
   }

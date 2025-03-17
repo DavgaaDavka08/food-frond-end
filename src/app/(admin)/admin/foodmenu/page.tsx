@@ -17,9 +17,11 @@ export default function Catagory() {
       console.log("error", error);
     }
   };
+  getData();
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div className="w-[100%] h-screen  items-center gap-5 m-auto flex flex-col bg-[#F4F4F5]">
       <div className="w-[92%] h-[89px] flex flex-col items-end">
@@ -40,7 +42,7 @@ export default function Catagory() {
             className="w-[92%] h-[582px] max-w-[92%] flex p-6   flex-col  items-start gap-4 border border-[#E4E4E7] rounded-sm  bg-white"
           >
             <h4 className="text-[#09090B] font-inter text-[20px] font-bold leading-7 tracking-[-0.5px]">
-              {item.FoodName}
+              <p>{item.FoodName}</p>
             </h4>
             <div className="flex ">
               <DialogDemos />

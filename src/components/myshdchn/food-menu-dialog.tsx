@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -57,7 +57,7 @@ const formSchema = z.object({
   categoryName: z.string().min(1, { message: "hoolni ner" }),
   price: z.string().min(1, { message: "vniig oruul" }),
   ingredients: z.string().min(5, { message: "orts 5 aas deesh" }),
-  image: z.string().nonempty("zurag oruul"),
+  image: z.string().optional(),
 });
 
 export function DialogDemos() {
@@ -84,23 +84,32 @@ export function DialogDemos() {
     setPreviewUrl(tempImageUrl);
     form.setValue("image", "uploaded");
   };
-
+  const getData = async () => {
+    try {
+      const data = await fetch("http://localhost:9999/food");
+      const jsonData = await data.json();
+      console.log("aaaa", jsonData);
+      setAddCategory(jsonData.getfood);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("NEMDEG AJILJ EHELLEE");
     const imageUrl = await uploadImage(foodImageFile);
-    if (!imageUrl) return;
+    if (!imageUrl || imageUrl.error) {
+      console.error("Image upload failed:", imageUrl);
+      return;
+    }
     form.setValue("image", imageUrl);
+    setFoodImageFile(null);
+    setPreviewUrl("");
+    form.setValue("image", "");
     ///
-    const getData = async () => {
-      try {
-        const data = await fetch("http://localhost:9999/food");
-        const jsonData = await data.json();
-        console.log("aaaa", jsonData);
-        setAddCategory(jsonData.getfood);
-      } catch (error) {
-        console.log("error");
-      }
-    };
+
     ////
 
     const response = await fetch("http://localhost:9999/food", {
@@ -165,9 +174,11 @@ export function DialogDemos() {
                       <FormControl>
                         <Input placeholder="Enter price..." {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="ingredients"
@@ -196,10 +207,10 @@ export function DialogDemos() {
                       {previewUrl && (
                         <Image
                           src={previewUrl}
-                          alt=""
+                          alt="Preview"
                           className="w-32 h-32 mt-2"
-                          width={32}
-                          height={32}
+                          width={128}
+                          height={128}
                         />
                       )}
                       <FormMessage />
@@ -212,7 +223,6 @@ export function DialogDemos() {
           </div>
         </DialogContent>
       </Dialog>
-
       {addCategory.map((data: FoodType, index) => (
         <div
           key={index}
