@@ -19,6 +19,7 @@ import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
 });
+
 export default function FristPage({ next }: { next: () => void }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -26,9 +27,32 @@ export default function FristPage({ next }: { next: () => void }) {
       email: "",
     },
   });
+
+  //
+  const SignUp = async (email: string) => {
+    try {
+      const response = await fetch("http://localhost:9999/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }), // email-ийг body-д дамжуулах
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
+      const data = await response.json();
+      console.log("Signup successful:", data);
+      alert("amjilttai burtgelee");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert("Signup amjilttui bolloo");
+    }
+  };
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    alert("amjilttaui");
+    SignUp(values.email); // email-ийг SignUp руу дамжуулах
     next();
   }
 

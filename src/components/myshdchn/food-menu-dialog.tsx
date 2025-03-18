@@ -230,13 +230,11 @@ export function DialogDemos() {
         >
           <div>
             <Image
-              className="flex justify-end items-end   flex-1 self-stretch rounded-[12px]"
-              alt=""
-              src={data?.image}
+              alt="Food image"
+              src={data.image ? data.image : "/fallback-image.png"}
               width={239}
               height={129}
             />
-
             <div className="flex flex-col gap-2">
               <div className="flex justify-between items-center gap-[10px]">
                 <p className="text-red-500 text-sm font-medium leading-5 font-inter">
