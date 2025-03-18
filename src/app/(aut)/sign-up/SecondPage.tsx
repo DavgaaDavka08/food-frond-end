@@ -23,7 +23,7 @@ const formSchema = z.object({
     .min(6, "hamgiin bagadaa 6")
     .max(8, "8 aas bvv hetvvl"),
 });
-export default function SecondPage() {
+export default function SecondPage({ email }: { email: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,9 +31,34 @@ export default function SecondPage() {
       PasswordCompirm: "",
     },
   });
+
+  const SignUp = async (email: string, password: string) => {
+    try {
+      const response = await fetch("http://localhost:9999/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
+      const data = await response.json();
+      console.log("Signup successful:", data);
+    } catch (error) {
+      console.error("Error signing up:", error);
+    }
+  };
+
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if (values.password !== values.PasswordCompirm) {
+      form.setError("PasswordCompirm", { message: "error in confirm" });
+      return;
+    }
+    SignUp(email, values.password);
     console.log(values);
-    alert("amjilttaui");
   }
 
   return (
@@ -48,7 +73,7 @@ export default function SecondPage() {
               <FormItem>
                 <div className="flex flex-wrap gap-1">
                   <FormLabel className="font-inter text-[24px] font-semibold leading-[32px] text-[#09090B]">
-                    Create your account
+                    burtguuleh
                   </FormLabel>
                   <h6 className="text-gray-500 text-base font-normal leading-6">
                     Sign up to explore your favorite dishes.

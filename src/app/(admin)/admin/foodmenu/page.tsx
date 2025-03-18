@@ -17,7 +17,6 @@ export default function Catagory() {
       console.log("error", error);
     }
   };
-  getData();
   useEffect(() => {
     getData();
   }, []);

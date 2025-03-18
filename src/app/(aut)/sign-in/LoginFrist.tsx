@@ -15,28 +15,26 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
-import { Dispatch } from "react";
+
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
+  password: z.string(),
 });
-export default function FristPage({
-  next,
-  setEmail,
-}: {
-  next: () => void;
-  setEmail: Dispatch<string>;
-}) {
+
+export default function FristpageLogin({ next }: { next: () => void }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
 
+  //
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    setEmail(values.email);
-    // SignUp(values.email);
+
     next();
   }
 
@@ -50,12 +48,12 @@ export default function FristPage({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex  flex-col gap-1">
                   <FormLabel className="font-inter text-[24px] font-semibold leading-[32px] text-[#09090B]">
-                    burtguuleh
+                    Nevtreh
                   </FormLabel>
                   <h6 className="text-gray-500 text-base font-normal leading-6">
-                    Sign up to explore your favorite dishes.
+                    Log in to enjoy youre favorite dishes
                   </h6>
                 </div>
                 <FormControl>
@@ -70,6 +68,26 @@ export default function FristPage({
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter your email address"
+                    className="w-[392px] h-[40px] px-[8px] py-[12px] flex  items-center rounded-md border border-gray-300 bg-white"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+                <h6 className="text-[#09090B] text-base font-normal leading-6">
+                  Forget Password ?
+                </h6>
+              </FormItem>
+            )}
+          />
           <Button
             onChange={next}
             className="flex w-[392px] h-[40px] px-8 py-0 justify-center items-center gap-8 rounded-md opacity-20 bg-[#18181B] text-white text-sm font-medium leading-5"
@@ -80,10 +98,10 @@ export default function FristPage({
           </Button>
           <div className="flex w-[316px]  items-center  gap-3 justify-center">
             <h3 className="text-gray-500 text-base font-normal leading-6">
-              Already have an account?
+              do not have an account
             </h3>
             <p className="text-16px font-normal leading-6 text-[#2563EB]">
-              Log in
+              Sign In
             </p>
           </div>
         </form>

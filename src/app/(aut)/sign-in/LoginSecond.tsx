@@ -15,29 +15,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
-import { Dispatch } from "react";
+
 const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(6, "hamgiin bagadaa 6").max(8, "8 aas bvv hetvvl"),
 });
-export default function FristPage({
-  next,
-  setEmail,
-}: {
-  next: () => void;
-  setEmail: Dispatch<string>;
-}) {
+export default function SecondPageSLogin() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      password: "",
     },
   });
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    setEmail(values.email);
-    // SignUp(values.email);
-    next();
   }
 
   return (
@@ -47,12 +37,12 @@ export default function FristPage({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="email"
+            name="password"
             render={({ field }) => (
               <FormItem>
                 <div className="flex flex-wrap gap-1">
                   <FormLabel className="font-inter text-[24px] font-semibold leading-[32px] text-[#09090B]">
-                    burtguuleh
+                    Create your account
                   </FormLabel>
                   <h6 className="text-gray-500 text-base font-normal leading-6">
                     Sign up to explore your favorite dishes.
@@ -60,8 +50,8 @@ export default function FristPage({
                 </div>
                 <FormControl>
                   <Input
-                    type="email"
-                    placeholder="Enter your email address"
+                    type="password"
+                    placeholder="Enter your password address"
                     className="w-[392px] h-[40px] px-[8px] py-[12px] flex  items-center rounded-md border border-gray-300 bg-white"
                     {...field}
                   />
@@ -70,8 +60,8 @@ export default function FristPage({
               </FormItem>
             )}
           />
+
           <Button
-            onChange={next}
             className="flex w-[392px] h-[40px] px-8 py-0 justify-center items-center gap-8 rounded-md opacity-20 bg-[#18181B] text-white text-sm font-medium leading-5"
             variant="outline"
             type="submit"
