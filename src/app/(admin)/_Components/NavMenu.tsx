@@ -10,7 +10,9 @@ export default function NavMenu() {
   return (
     <div className="w-[15%]  h-screen border-gray-300  flex pt-9 pb-9 px-[var(--spacing-5,20px)] flex-col items-start gap-10 flex-shrink-0">
       <div className="flex gap-2">
-        <Image width={50} height={50} src="/logo.svg" alt="" />
+        <Link href="/">
+          <Image width={50} height={50} src="/logo.svg" alt="" />
+        </Link>
         <div className="flex flex-col">
           <h4 className="text-[18px] normal leading-7 font-semibold text-[#09090B]">
             NomNom
