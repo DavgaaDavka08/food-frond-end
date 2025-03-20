@@ -2,7 +2,7 @@ import {
   ButtonAdmin,
   ButtonAdminTree,
   ButtonAdminTwo,
-} from "@/components/myshdchn/buttun-admin";
+} from "@/components/ui/myshdchn/buttun-admin";
 import Image from "next/image";
 import Link from "next/link";
 

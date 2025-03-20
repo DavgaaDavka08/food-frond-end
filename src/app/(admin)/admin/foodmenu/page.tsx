@@ -1,5 +1,4 @@
-
-import { FoodMenuDialogDemo } from "@/components/myshdchn/api-Shadchn/foodMenuDialog";
+import { FoodMenuDialogDemo } from "@/components/ui/myshdchn/api-Shadchn/foodMenuDialog";
 import Image from "next/image";
 import Link from "next/link";
 export default function Catagory() {

@@ -1,5 +1,5 @@
-import { ButtonOutline } from "@/components/myshdchn/mybuttunoutline";
-import { ButtonDestructive } from "@/components/myshdchn/mybuttunred";
+import { ButtonOutline } from "@/components/ui/myshdchn/mybuttunoutline";
+import { ButtonDestructive } from "@/components/ui/myshdchn/mybuttunred";
 import Image from "next/image";
 import Link from "next/link";
 
