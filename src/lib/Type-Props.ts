@@ -5,4 +5,5 @@ export type FoodType = {
   price: number;
   ingredients: number;
   categoryName: string;
+  category: string;
 };

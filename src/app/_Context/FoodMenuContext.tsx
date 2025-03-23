@@ -9,8 +9,8 @@ import React, {
 } from "react";
 
 type FoodContextType = {
-  blance: FoodType;
-  setBlance: (_blance: FoodType) => void;
+  callData: FoodType;
+  setCallData: (_callData: FoodType) => void;
 };
 ///222context -ee uusgeh
 export const FoodContext = createContext<FoodContextType>(
@@ -23,7 +23,7 @@ export const useFood = () => {
 };
 //111wrapoer buyuu gaduur ni orooh context uusgeh
 const FoodProvider = ({ children }: { children: ReactNode }) => {
-  const [blance, setBlance] = useState<FoodType>();
+  const [callData, setCallData] = useState<FoodType>();
   const getData = async () => {
     try {
       const getCategory = await fetch(
@@ -31,7 +31,7 @@ const FoodProvider = ({ children }: { children: ReactNode }) => {
       );
       const jsonCategory = await getCategory.json();
       console.log("jsonCategory :>> ", jsonCategory);
-      setBlance(jsonCategory.getfood); // getfood maani isfect iin getfoodshvv
+      setCallData(jsonCategory.getfood); // getfood maani isfect iin getfoodshvv
     } catch (error) {
       console.log("error :>> ", error);
     }
@@ -41,11 +41,12 @@ const FoodProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   return (
     //333uusgesen contex aa provideraar ni orooj ogoh
-    <FoodContext.Provider value={{ blance, setBlance }}>
+    <FoodContext.Provider value={{ callData, setCallData }}>
       <h1>hollo something</h1>
       {children}
     </FoodContext.Provider>
   );
+
 };
 
 export default FoodProvider;
