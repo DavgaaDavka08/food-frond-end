@@ -3,14 +3,11 @@ import { useFood } from "@/app/_Context/FoodMenuContext";
 import { FoodMenuDialogDemo } from "@/components/ui/myshdchn/api-Shadchn/foodMenuDialog";
 import { DialogDemos } from "@/components/ui/myshdchn/api-Shadchn/foodMenuDialogs";
 import { FoodType } from "@/lib/Type-Props";
-
 import Image from "next/image";
 import Link from "next/link";
-
-
 export default function Catagory() {
   const { callData } = useFood();
-  if (!callData) return <p>Loading...</p>;
+  console.log("cat", callData)
   return (
     <div className="w-[100%]  bg-[#F4F4F5] ">
       <div className="items-center w-[100%]   gap-8 justify-center flex flex-col ">
@@ -25,9 +22,9 @@ export default function Catagory() {
           </h4>
 
           <div className="flex flex-wrap items-center content-center gap-x-3 gap-y-3 self-stretch">
-            {/* <p className="font-inter text-sm not-italic font-medium leading-5 flex h-9 px-4 py-2 items-center gap-2 rounded-full border border-[#EF4444]">
+            <button className="font-inter text-sm not-italic font-medium leading-5 flex h-9 px-4 py-2 items-center gap-2 rounded-full border border-[#EF4444]">
               All Dishesh
-            </p>
+            </button>
             <p className="font-inter text-sm not-italic font-medium leading-5 flex h-9 px-4 py-2 items-center gap-2 rounded-full border border-[#EF4444]">
               Appetizers
             </p>
@@ -54,22 +51,21 @@ export default function Catagory() {
             </p>
             <p className="font-inter text-sm not-italic font-medium leading-5 flex h-9 px-4 py-2 items-center gap-2 rounded-full border border-[#EF4444]">
               bevereges
-            </p> */}
+            </p>
             <div>
               <FoodMenuDialogDemo />
             </div>
           </div>
         </div>
         <div className="w-[92%] flex flex-col items-start gap-4 rounded-sm">
-
-          {callData.map((data: FoodType, index: number) => (
+          {(callData ?? []).map((data: FoodType, index: number) => (
             <div
               key={index}
               className="w-[100%] flex p-6 flex-col items-start gap-4 border border-[#E4E4E7] rounded-sm bg-white"
             >
               <div>
                 <p>{data.categoryName}</p>
-                <DialogDemos />
+                <DialogDemos category={data._id} />
               </div>
             </div>
           ))}

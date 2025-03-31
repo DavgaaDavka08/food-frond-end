@@ -31,7 +31,8 @@ const FoodProvider = ({ children }: { children: ReactNode }) => {
       );
       const jsonCategory = await getCategory.json();
       console.log("jsonCategory :>> ", jsonCategory);
-      setCallData(jsonCategory.getfood); // getfood maani isfect iin getfoodshvv
+
+      setCallData(jsonCategory.getfood || []); // getfood байхгүй бол хоосон массив өгөх
     } catch (error) {
       console.log("error :>> ", error);
     }
@@ -42,7 +43,7 @@ const FoodProvider = ({ children }: { children: ReactNode }) => {
   return (
     //333uusgesen contex aa provideraar ni orooj ogoh
     <FoodContext.Provider value={{ callData, setCallData }}>
-      <h1>hollo something</h1>
+
       {children}
     </FoodContext.Provider>
   );
