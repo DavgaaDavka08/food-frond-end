@@ -12,18 +12,15 @@ export default function UploudPhoto() {
       setFile(file);
     }
   };
-
   const handleUpload = async () => {
     if (!file) {
       alert("Please select a file");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", FRESET_NAME);
     formData.append("api_key", CLOUDINARY_NAME);
-
     try {
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/upload`,
@@ -44,7 +41,6 @@ export default function UploudPhoto() {
       alert("Failed to upload file");
     }
   };
-
   return (
     <div>
       <input type="file" onChange={handleFile} />

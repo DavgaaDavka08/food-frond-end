@@ -34,9 +34,14 @@ import { FoodType } from "@/lib/Type-Props";
 import { Label } from "@/components/ui/label";
 const formSchema = z.object({
   categoryName: z.string().min(2).max(50),
-  categoryUpdate: z.string().min(1),
 });
 export function FoodMenuDialogDemo() {
+  const categories = [{
+    hool: "mongulian food",
+    salad: "Salads",
+    tsai: "Drinks"
+  }
+  ]
   const [getCategory, setGetCategory] = useState<FoodType[]>([]);
   const [addCategory, setAddCategory] = useState<FoodType[]>([]);
   console.log("addCategory :>> ", addCategory);
@@ -46,7 +51,6 @@ export function FoodMenuDialogDemo() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       categoryName: "",
-      categoryUpdate: "",
     },
   });
   //api
@@ -57,13 +61,13 @@ export function FoodMenuDialogDemo() {
       );
       const jsonCategory = await getCategory.json();
       console.log("jsonCategory :>> ", jsonCategory);
-      setGetCategory(jsonCategory.getfood); // getfood maani isfect iin getfoodshvv
+      setGetCategory(jsonCategory.getcategory);
     } catch (error) {
       console.log("error :>> ", error);
     }
   };
   //addCategory
-  const addData = async (categoryName: string) => {
+  const addData = async ({ categoryName }: { categoryName: string }) => {
     try {
       const addCategory = await fetch(
         "http://localhost:2000/api/food-category",
@@ -72,15 +76,16 @@ export function FoodMenuDialogDemo() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ categoryName }),
+          body: JSON.stringify({ categoryName: categoryName }),
         }
       );
       if (!addCategory.ok) {
         throw new Error(`getdata status:${addCategory.status}`);
       }
       const jsonCategory = await addCategory.json();
-      console.log("ne,jiinuu saaaa :>> ", addCategory);
-      setAddCategory(jsonCategory.addCategory || []);
+      console.log("jsonCategory :>> ", jsonCategory);
+      setAddCategory([jsonCategory.newCategory]);
+
     } catch (error) {
       console.log("error :>> ", error);
     }
@@ -135,20 +140,28 @@ export function FoodMenuDialogDemo() {
   useEffect(() => {
     getData();
   }, []);
-  const editData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const editData = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setUpdateDatas(value);
     setOpen(false);
+    await getData();
   };
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    await getData();
-    await addData(values.categoryName);
+    console.log("category", values);
+    await addData(values);
     setOpen(false);
+    await getData()
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <div className="flex py-2 px-4 items-center gap-8 ">
+        {categories.map((item, index) => {
+          return <div className="flex gap-3 items-center" key={index}>
+            <Button>{item.hool}</Button>
+            <Button>{item.salad}</Button>
+            <Button>{item.tsai}</Button>
+          </div>
+        })}
         {getCategory?.map((data: FoodType, index) => {
           return (
             <ContextMenu key={index}>

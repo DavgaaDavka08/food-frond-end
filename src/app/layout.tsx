@@ -32,7 +32,6 @@ export default function RootLayout({
         <FoodProvider>
           {children}
         </FoodProvider>
-
         <Toaster />
       </body>
     </html>

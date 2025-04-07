@@ -1,8 +1,9 @@
-import { ButtonOutline } from "@/components/ui/myshdchn/mybuttunoutline";
-import { ButtonDestructive } from "@/components/ui/myshdchn/mybuttunred";
-import Image from "next/image";
-import Link from "next/link";
 
+import { DialogDemoHeaders } from "@/components/ui/myshdchn/api-Shadchn/headerdialogy";
+import { DropdownMenuDemo } from "@/components/ui/myshdchn/api-Shadchn/headerDropDownMenu";
+import { InputDemoHeaders } from "@/components/ui/myshdchn/HeaderInput";
+import { SheetDemo } from "@/components/ui/myshdchn/sheet";
+import Image from "next/image";
 export default function Header() {
   return (
     <div className="w-full h-[84px] bg-[#18181B]">
@@ -18,19 +19,20 @@ export default function Header() {
                 Nom
               </h4>
             </div>
-
             <h5 className="text-[#F4F4F5] text-center font-inter text-[12px] font-normal leading-[16px]">
               Swift delivery
             </h5>
           </div>
         </div>
-        <div>
-          <ButtonOutline />
-          <Link href={"/sign-up"}>
-            <ButtonDestructive />
-          </Link>
-
-          {/* <InputDemo /> */}
+        <div className="flex gap-3 items-center">
+          <div className="relative">
+            <div className="absolute left-3 cursor-pointer">
+              <DialogDemoHeaders />
+            </div>
+            <InputDemoHeaders />
+          </div>
+          <SheetDemo />
+          <DropdownMenuDemo />
         </div>
       </div>
     </div>
