@@ -9,9 +9,71 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { FoodType } from "@/lib/Type-Props"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 export function DialogDemoEdits() {
+    const [getFood, setGetFood] = useState<FoodType[]>([]);
+    const [addFood, setAddFood] = useState<FoodType[]>([]);
+    //api
+    const getData = async () => {
+        try {
+            const response = await fetch("http://localhost:2000/food");
+            const jsonData = await response.json();
+            setGetFood(jsonData.getfood);
+            console.log('object :>> ', jsonData);
+        } catch (error) {
+            console.error("Fetch error:", error);
+        }
+    };
+    //addCategory
+    const addData = async ({ categoryName }: { categoryName: string }) => {
+        try {
+            const data = await fetch("http://localhost:2000/food", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    foodName: "s",
+                    price: 100,
+                    image: "s",
+                    ingredients: "guril mah",
+                    category: "676e370164d1f8cafda026ac",
+                }),
+            });
+            const jsonData = await data.json();
+            console.log("data", jsonData);
+            getData()
+        } catch (error) {
+            console.log("error :>> ", error);
+        }
+        getData();
+    };
+    const deleteData = async (id: string) => {
+        try {
+            const deleteCategory = await fetch(
+                "http://localhost:2000/food:id",
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (!deleteCategory.ok) {
+                throw new Error(`getdata status:${deleteCategory.status}`);
+            }
+            console.log("deleteCategory ajillaj baina uu?????/ :>> ", deleteCategory);
+        } catch (error) {
+            console.log("error :>> ", error);
+        }
+        getData();
+    };
+    useEffect(() => {
+        getData()
+    }, [])
     return (
         <Dialog>
             <DialogTrigger asChild>

@@ -14,6 +14,7 @@ export const Food = () => {
         try {
             const response = await fetch("http://localhost:2000/food");
             const jsonData = await response.json();
+            console.log("Food data!!!", jsonData)
             setAddCategory(jsonData.getfood);
         } catch (error) {
             console.error("Fetch error:", error);
@@ -32,7 +33,7 @@ export const Food = () => {
                     >
                         <p className="text-[19`px] text-red-500">{data.categoryName}</p>
                         <div className="flex m-auto items-center gap-9 flex-wrap">
-                            {addCategory?.filter((food) => data._id === food.category._id).map((data, index) => (
+                            {addCategory?.filter((food) => data._id === food.category?._id).map((data, index) => (
                                 <div key={index} className="w-[280px] bg-white h-[292px] flex flex-col p-4 items-start gap-4 rounded-xl shadow-md border border-gray-200">
                                     <div className="relative w-full">
                                         <Image

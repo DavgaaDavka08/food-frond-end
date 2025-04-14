@@ -24,7 +24,7 @@ export default function Catagory() {
             <FoodMenuDialogDemo />
           </div>
         </div>
-        <div className="w-[92%] flex flex-col items-start gap-4 rounded-sm">
+        <div className="w-[92%]  flex flex-col items-start gap-4 rounded-sm">
           {(callData ?? []).map((data: FoodType, index: number) => (
             <div
               key={index}
