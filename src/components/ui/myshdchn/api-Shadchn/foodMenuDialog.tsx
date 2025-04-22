@@ -208,6 +208,7 @@ export function FoodMenuDialogDemo() {
             </ContextMenu>
           );
         })}
+        
         <DialogTrigger asChild>
           <Button
             variant="outline"

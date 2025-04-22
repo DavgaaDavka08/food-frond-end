@@ -13,13 +13,13 @@ export const useFood = () => {
 };
 function FoodProvider({ children }: { children: ReactNode }) {
   const [callData, setCallData] = useState<FoodType[]>([]);
+
   const getData = async () => {
     try {
       const getCategory = await fetch(
         "http://localhost:2000/api/food-category/:foodCategoryId"
       );
       const jsonCategory = await getCategory.json();
-      console.log("jsonCategory :>> ", jsonCategory);
       setCallData(jsonCategory.getcategory);
     } catch (error) {
       console.log("error :>> ", error);
@@ -28,6 +28,7 @@ function FoodProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     getData()
   }, [])
+  console.log('callData context dataa!!!!!!s:>> ', callData);
   return (
     <FoodContext.Provider value={{ callData, setCallData }}>
       {children}

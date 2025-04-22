@@ -25,6 +25,7 @@ function FoodProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         getData();
     }, []);
+    console.log('addCategory context dataa!!!!! :>> ', addCategory);
     return (
         <FoodContexts.Provider value={{ addCategory, setAddCategory }}>
             {children}
